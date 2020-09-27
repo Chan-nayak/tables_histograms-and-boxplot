@@ -1,0 +1,85 @@
+
+Code
+import seaborn as sns
+import matplotlib.pyplot as plt
+​
+digets = sns.load_dataset("tips")
+digets.head()
+total_bill	tip	sex	smoker	day	time	size
+0	16.99	1.01	Female	No	Sun	Dinner	2
+1	10.34	1.66	Male	No	Sun	Dinner	3
+2	21.01	3.50	Male	No	Sun	Dinner	3
+3	23.68	3.31	Male	No	Sun	Dinner	2
+4	24.59	3.61	Female	No	Sun	Dinner	4
+digets.describe()
+total_bill	tip	size
+count	244.000000	244.000000	244.000000
+mean	19.785943	2.998279	2.569672
+std	8.902412	1.383638	0.951100
+min	3.070000	1.000000	1.000000
+25%	13.347500	2.000000	2.000000
+50%	17.795000	2.900000	2.000000
+75%	24.127500	3.562500	3.000000
+max	50.810000	10.000000	6.000000
+digets.shape
+(244, 7)
+tips_data = digets
+tips_data.groupby(['day']).count()
+total_bill	tip	sex	smoker	time	size
+day						
+Thur	62	62	62	62	62	62
+Fri	19	19	19	19	19	19
+Sat	87	87	87	87	87	87
+Sun	76	76	76	76	76	76
+tips_data.describe()
+total_bill	tip	size
+count	244.000000	244.000000	244.000000
+mean	19.785943	2.998279	2.569672
+std	8.902412	1.383638	0.951100
+min	3.070000	1.000000	1.000000
+25%	13.347500	2.000000	2.000000
+50%	17.795000	2.900000	2.000000
+75%	24.127500	3.562500	3.000000
+max	50.810000	10.000000	6.000000
+sns.distplot(tips_data["total_bill"], kde = False).set_title("Histogram of total bill")
+plt.show()
+
+sns.distplot(tips_data["tip"], kde = False).set_title("Histogram of tips")
+plt.show()
+
+F
+sns.distplot(tips_data["total_bill"], kde = False).set_title("Showing two histograms in one")
+sns.distplot(tips_data["tip"], kde=False).set_title("Histogram of Total Bill and Tips")
+plt.show()
+
+sns.boxplot(tips_data["total_bill"]).set_title("Boxsplot of total bill")
+plt.show()
+
+sns.boxplot(x = tips_data["tip"], y = tips_data["smoker"])
+​
+g = sns.FacetGrid(tips_data, row = "smoker")
+g = g.map(plt.hist , "tip")
+​
+plt.show()
+
+
+"
+sns.boxplot(x = tips_data["tip"], y = tips_data["time"])
+​
+g = sns.FacetGrid(tips_data, row="time")
+g = g.map(plt.hist, "tip")
+​
+plt.show()
+
+
+sns.boxplot(x = tips_data["tip"], y = tips_data["day"])
+​
+g = sns.FacetGrid(tips_data , row = "day")
+g = g.map(plt.hist , "tip")
+​
+plt.show()
+
+
+day
+sns.boxplot(x = digets["tip"], hue = digets["sex"], y = digets["day"])
+<matplotlib.axes._subplots.AxesSubplot at 0x1afe5dd5a08>
